@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+# Aplicación de Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Esta es una aplicación de frontend basada en TypeScript, aprovechando la biblioteca React para crear interfaces de usuario y utilizando la biblioteca Material UI para el estilo de los componentes. La aplicación ofrece una interfaz sencilla para componer y enviar un correo electrónico, con dos secciones principales:
 
-## Available Scripts
+## Interfaz de composición de correo electrónico
 
-In the project directory, you can run:
+Visor de temas
+Interfaz de composición de correo electrónico
+La interfaz de composición de correo electrónico consta de dos componentes principales: el campo de asunto y el campo de cuerpo.
 
-### `npm start`
+El campo de asunto es un área de texto donde los usuarios pueden introducir el asunto deseado del correo electrónico. El texto introducido en este área está destinado a mostrarse como el asunto del correo electrónico.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+El campo de cuerpo es otra área de texto donde los usuarios pueden escribir el contenido principal del correo electrónico.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Estos campos se asignan automáticamente identificadores únicos (SubjectField y BodyField) que se utilizan para extraer los valores de entrada y enviar el correo electrónico al servidor.
 
-### `npm test`
+## Visor de temas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+El visor de temas es un lugar reservado para mostrar los temas de los correos electrónicos. Esta sección se poblará cuando la aplicación reciba una respuesta del servidor que contenga los temas de correo electrónico después de enviar el correo electrónico.
 
-### `npm run build`
+## Enviar un correo electrónico
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Los usuarios pueden enviar un correo electrónico haciendo clic en el botón "Enviar correo electrónico". El botón es un componente de Material UI que activa la función SendRequest cuando se hace clic, enviando el correo electrónico al servidor utilizando la clase XMLHttpRequest. La función SendRequest se encarga de los siguientes pasos:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Crear una solicitud HTTP
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Registrar un Listener de eventos para gestionar la respuesta del servidor
+Preparar el cuerpo de la solicitud utilizando los valores de SubjectField y BodyField
+Enviar el correo electrónico al servidor
+Registrar la respuesta HTTP en la consola
+Imprimir un mensaje en la consola indicando el clic en el botón
+Componentes de la interfaz de usuario
+La aplicación presenta un aspecto simple con dos secciones principales:
 
-### `npm run eject`
+* Sección de composición de correo electrónico: Esta sección es un diseño vertical que contiene el campo de asunto y el campo de cuerpo de texto.
+* Visor de temas: Esta sección presenta un diseño sencillo que contiene el lugar reservado para los temas de correo electrónico.
+Estilos de la interfaz de usuario
+El usuario interfaz está diseñada con clases y estilos CSS específicos para los componentes de Material UI. La configuración del layout garantiza que la aplicación no solo tenga un aspecto visual atractivo, sino que también ofrezca una experiencia de usuario agradable. La paleta de colores principal consiste en tonos de gris y negro, con colores de fondo y texto seleccionados para optimizar la legibilidad y resaltar las entradas del usuario.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Conclusión
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Esta aplicación de frontend ofrece una interfaz sencilla y amigable para componer y enviar correos electrónicos. Integra marcos y bibliotecas modernas para crear una experiencia de usuario fluida, mientras que el lenguaje TypeScript permite un código base más robusto y mantenible. La aplicación está bien organizada y sig
