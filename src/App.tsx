@@ -10,10 +10,21 @@ function App() {
      element!.innerHTML=http.responseText;
     });
     // open the request with the verb and the url
-    http.open("GET", "https://dog.ceo/api/breeds/list/all");
+    http.open("POST", "https://httpbin.org/anything");
     // send the request
-    http.send();
+    let params = {
+     subject: '',
+     body: '',
+   };
+    const Subject = document.getElementById('SubjectField') as HTMLTextAreaElement;
+    if(Subject)
+      params['subject'] = Subject.value;
+    const Body = document.getElementById('BodyField') as HTMLTextAreaElement;
+    if(Body)
+      params["body"] = Body.value;
+    http.send(JSON.stringify(params));
     console.log("I have been pressed");
+    console.log(http.responseText);
   }
 
   return (
@@ -22,14 +33,14 @@ function App() {
         <div className="flex-col w-2/3 h-full gap-28 flex">
           <div className="bg-slate-200 opacity-30 h-16 border-black border-4">
             <textarea
-              id="EmailInput"
+              id="SubjectField"
               placeholder="Subject..."
               className="w-full h-14 min-h-14 max-h-14 text-2xl font-semibold align-middle"
             />
           </div>
           <div className="h-2/3 bg-slate-200 opacity-30 border-black border-4">
             <textarea
-              id="EmailInput"
+              id="BodyField"
               placeholder="Email body..."
               className="w-full h-full max-h-full min-h-full text-lg font-semibold"
             />
