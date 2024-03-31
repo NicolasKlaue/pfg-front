@@ -8,11 +8,11 @@ Visor de temas
 Interfaz de composición de correo electrónico
 La interfaz de composición de correo electrónico consta de dos componentes principales: el campo de asunto y el campo de cuerpo.
 
-El campo de asunto es un área de texto donde los usuarios pueden introducir el asunto deseado del correo electrónico. El texto introducido en este área está destinado a mostrarse como el asunto del correo electrónico.
+El campo de asunto es un área de texto donde los usuarios pueden introducir el asunto deseado del correo electrónico.
 
 El campo de cuerpo es otra área de texto donde los usuarios pueden escribir el contenido principal del correo electrónico.
 
-Estos campos se asignan automáticamente identificadores únicos (SubjectField y BodyField) que se utilizan para extraer los valores de entrada y enviar el correo electrónico al servidor.
+Estos campos se les asignan los identificadores únicos (SubjectField y BodyField) que se utilizan para extraer los valores de entrada y enviar el correo electrónico al servidor.
 
 ## Visor de temas
 
