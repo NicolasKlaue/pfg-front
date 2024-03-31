@@ -9,14 +9,16 @@ function App() {
           2: 'bg-yellow-900',
           3: 'bg-orange-900',
           4: 'bg-red-900',
-        };
+          };
 
         function SendRequest() {
           const topicsField = document.getElementById('TopicsField');
           const urgencyField = document.getElementById('UrgencyField');
           const Subject = document.getElementById('SubjectField') as HTMLTextAreaElement;
           const Body = document.getElementById('BodyField') as HTMLTextAreaElement;
-        
+          const Spinner = document.getElementById('Spinner');
+          Spinner?.classList.add('block');
+          Spinner?.classList.remove('hidden');
           if (!topicsField || !urgencyField || !Subject || !Body) {
             console.error('One or more required fields not found.');
             return;
@@ -26,7 +28,7 @@ function App() {
             Subject: Subject.value,
             Body: Body.value,
           };
-        
+          
           axios.post('http://localhost:8000/', params)
                .then(response => {
                     const responseData = response.data;
@@ -45,12 +47,16 @@ function App() {
                          for (let i = 0; i < urgencyChildren.length; i++) {
                               if (i <urgency){
                               urgencyChildren[i].classList.add(colors[i]);
+                              urgencyChildren[i].classList.remove("bg-slate-200");
                               urgencyChildren[i].classList.add("opacity-70");
                               } else{
                               urgencyChildren[i].classList.remove(colors[i]);
+                              urgencyChildren[i].classList.add("bg-slate-200");
                               urgencyChildren[i].classList.remove("opacity-70");
                               }
                          }
+                         Spinner?.classList.remove('block');
+                         Spinner?.classList.add('hidden');
                     } else {
                          console.error('Invalid response format:', responseData);
                     }
@@ -224,6 +230,7 @@ function App() {
               className="w-full"
               onClick={() => SendRequest()}
             >
+               <img className="hidden animate-spin" id="Spinner" src="spinner-svgrepo-com.svg" alt="Spinner" width={25}/>
               Send email
             </Button>
           </div>
