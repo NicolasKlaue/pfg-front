@@ -28,40 +28,40 @@ function App() {
           };
         
           axios.post('http://localhost:8000/', params)
-            .then(response => {
-              const responseData = response.data;
+               .then(response => {
+                    const responseData = response.data;
         
-              if (responseData.hasOwnProperty('urgencyRating') && responseData.hasOwnProperty('emailTopics')) {
-                const topics = responseData.emailTopics;
-                const urgency = responseData.urgencyRating;
-        
-                topicsField.innerHTML = "TOPICS: <br> <li>" + topics + "</li>";
-                topicsField.classList.add("font-bold");
-                topicsField.classList.add("text-2xl");
-                topicsField.classList.add("text-left");
-                topicsField.classList.add("text-black");
-               console.log('responseData:', responseData);
-                const urgencyChildren = urgencyField.children;
-                for (let i = 0; i < urgencyChildren.length; i++) {
-                    if (i <urgency){
-                    urgencyChildren[i].classList.add(colors[i]);
-                    urgencyChildren[i].classList.add("opacity-70");
-                    } else{
-                    urgencyChildren[i].classList.remove(colors[i]);
-                    urgencyChildren[i].classList.remove("opacity-70");
+                    if (responseData.hasOwnProperty('urgencyRating') && responseData.hasOwnProperty('emailTopics')) {
+                              const topics = responseData.emailTopics;
+                              const urgency = responseData.urgencyRating;
+                    
+                              topicsField.innerHTML = "TOPICS: <br> <li>" + topics + "</li>";
+                              topicsField.classList.add("font-bold");
+                              topicsField.classList.add("text-2xl");
+                              topicsField.classList.add("text-left");
+                              topicsField.classList.add("text-black");
+                         console.log('responseData:', responseData);
+                         const urgencyChildren = urgencyField.children;
+                         for (let i = 0; i < urgencyChildren.length; i++) {
+                              if (i <urgency){
+                              urgencyChildren[i].classList.add(colors[i]);
+                              urgencyChildren[i].classList.add("opacity-70");
+                              } else{
+                              urgencyChildren[i].classList.remove(colors[i]);
+                              urgencyChildren[i].classList.remove("opacity-70");
+                              }
+                         }
+                    } else {
+                         console.error('Invalid response format:', responseData);
                     }
-                }
-              } else {
-                console.error('Invalid response format:', responseData);
-              }
-            })
-            .catch(error => {
-              console.error('Error sending request:', error);
-            });
-        
-          console.log('JSON.stringify(params):', JSON.stringify(params));
-          console.log("I have been pressed");
-        }
+               })
+               .catch(error => {
+               console.error('Error sending request:', error);
+               });
+          
+               console.log('JSON.stringify(params):', JSON.stringify(params));
+               console.log("I have been pressed");
+          }
         
 
   return (
