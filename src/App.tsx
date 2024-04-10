@@ -48,11 +48,11 @@ function App() {
                          for (let i = 0; i < urgencyChildren.length; i++) {
                               if (i <urgency){
                               urgencyChildren[i].classList.add(colors[i]);
-                              urgencyChildren[i].classList.remove("bg-slate-200");
+                              urgencyChildren[i].classList.remove("bg-slate-900");
                               urgencyChildren[i].classList.add("opacity-70");
                               } else{
                               urgencyChildren[i].classList.remove(colors[i]);
-                              urgencyChildren[i].classList.add("bg-slate-200");
+                              urgencyChildren[i].classList.add("bg-slate-900");
                               urgencyChildren[i].classList.remove("opacity-70");
                               }
                          }
@@ -129,16 +129,20 @@ function App() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-28">
-          <div id="UrgencyField" className="flex flex-row">
+        <div className="flex flex-col gap-8">
+          <div className="bg-slate-50 border-black border-solid border-4 opacity-30 w-full h-min text-2xl">
+               <p className="p-2">Rating de urgencia</p>
+          </div>
+          <div id="UrgencyField" className="flex flex-row mb-28">
             <div className="transition
             w-16
             h-16
             border-solid
             border-4
-            border-black
-            bg-slate-200
-            opacity-30
+            border-gray-400
+            bg-slate-900
+            text-white
+            opacity-60
             text-center
             flex
             justify-center
@@ -151,9 +155,10 @@ function App() {
             h-16
             border-solid
             border-4
-            border-black
-            bg-slate-200
-            opacity-30
+            border-gray-400
+            bg-slate-900
+            text-white
+            opacity-60
             text-center
             flex
             justify-center
@@ -166,9 +171,10 @@ function App() {
             h-16
             border-solid
             border-4
-            border-black
-            bg-slate-200
-            opacity-30
+            border-gray-400
+            bg-slate-900
+            text-white
+            opacity-60
             text-center
             flex
             justify-center
@@ -181,9 +187,10 @@ function App() {
             h-16
             border-solid
             border-4
-            border-black
-            bg-slate-200
-            opacity-30
+            border-gray-400
+            bg-slate-900
+            text-white
+            opacity-60
             text-center
             flex
             justify-center
@@ -196,9 +203,10 @@ function App() {
             h-16
             border-solid
             border-4
-            border-black
-            bg-slate-200
-            opacity-30
+            border-gray-400
+            bg-slate-900
+            text-white
+            opacity-60
             text-center
             flex
             justify-center
@@ -207,7 +215,7 @@ function App() {
               <p>5</p>
             </div>
           </div>
-          <div className="h-1/3">
+          <div className="h-1/3 mb-28">
             <p
               id="TopicsField"
               className="
