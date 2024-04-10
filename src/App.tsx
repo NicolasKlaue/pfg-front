@@ -133,7 +133,7 @@ function App() {
           <div className="bg-slate-50 border-black border-solid border-4 opacity-30 w-full h-min text-2xl">
                <p className="p-2">Rating de urgencia</p>
           </div>
-          <div id="UrgencyField" className="flex flex-row mb-28">
+          <div id="UrgencyField" className="flex flex-row">
             <div className="transition
             w-16
             h-16
@@ -215,7 +215,11 @@ function App() {
               <p>5</p>
             </div>
           </div>
+          <div className="bg-slate-50 border-black border-solid border-4 opacity-30 w-full h-min text-2xl">
+               <p className="p-2">Temas</p>
+          </div>
           <div className="h-1/3 mb-28">
+               
             <p
               id="TopicsField"
               className="
