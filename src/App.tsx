@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Button } from "@mui/material";
 import axios from "axios";
 
 function App() {
+  const [isClicked, setIsClicked] = useState(false);
+  const [subjectArea, setSubjectArea] = useState('');
+  const [bodyArea, setBodyArea] = useState('');
   const colors: { [key: number]: string } = {
     0: "bg-green-900",
     1: "bg-lime-900",
@@ -22,6 +25,7 @@ function App() {
     const Spinner = document.getElementById("Spinner");
     Spinner?.classList.add("block");
     Spinner?.classList.remove("hidden");
+    setIsClicked(true);
     if (!topicsField || !urgencyField || !Subject || !Body) {
       console.error("One or more required fields not found.");
       return;
@@ -36,7 +40,7 @@ function App() {
       .post("http://localhost:8000/", params)
       .then((response) => {
         const responseData = response.data;
-
+          console.log(response)
         if (
           responseData.hasOwnProperty("urgencyRating") &&
           responseData.hasOwnProperty("emailTopics")
@@ -44,12 +48,11 @@ function App() {
           const topics = responseData.emailTopics;
           const urgency = responseData.urgencyRating;
 
-          topicsField.innerHTML = "TOPICS: <br> <li>" + topics + "</li>";
+          topicsField.innerHTML = "TOPICS: <br>" + topics.map((topic: string) => "<li>" + topic + "</li>").join("");
           topicsField.classList.add("font-bold");
           topicsField.classList.add("text-2xl");
           topicsField.classList.add("text-left");
           topicsField.classList.add("text-black");
-          console.log("responseData:", responseData);
           const urgencyChildren = urgencyField.children;
           for (let i = 0; i < urgencyChildren.length; i++) {
             if (i < urgency) {
@@ -64,12 +67,19 @@ function App() {
           }
           Spinner?.classList.remove("block");
           Spinner?.classList.add("hidden");
+          setIsClicked(false);
         } else {
           console.error("Invalid response format:", responseData);
+          Spinner?.classList.remove("block");
+          Spinner?.classList.add("hidden");
+          setIsClicked(false);
         }
       })
       .catch((error) => {
         console.error("Error sending request:", error);
+        Spinner?.classList.remove("block");
+        Spinner?.classList.add("hidden");
+        setIsClicked(false);
       });
 
     console.log("JSON.stringify(params):", JSON.stringify(params));
@@ -77,28 +87,9 @@ function App() {
   }
 
   function FillExample(SampleSubject: string, SampleBody: string): void {
-     const Subject = document.getElementById(
-       "SubjectField"
-     ) as HTMLTextAreaElement;
-     const Body = document.getElementById("BodyField"
-     ) as HTMLTextAreaElement;
-     Subject.innerHTML = SampleSubject;
-     Body.innerHTML = SampleBody;
+     setSubjectArea(SampleSubject);
+     setBodyArea(SampleBody);
   }
-
-     function NavigateConfig(): void {
-          throw new Error("Function not implemented.");
-     }
-
-     function CleanFields(): void {
-          const Subject = document.getElementById(
-          "SubjectField"
-        ) as HTMLTextAreaElement;
-        const Body = document.getElementById("BodyField"
-        ) as HTMLTextAreaElement;
-        Subject.innerHTML = "";
-        Body.innerHTML = "";
-     }
 
   return (
     <body
@@ -205,6 +196,8 @@ function App() {
             <textarea
               id="SubjectField"
               placeholder="Asunto..."
+              value={subjectArea}
+              onChange={(e) => setSubjectArea(e.target.value)}
               className="
               w-full
               h-14
@@ -226,6 +219,8 @@ function App() {
             <textarea
               id="BodyField"
               placeholder="Cuerpo del mail..."
+              value={bodyArea}
+              onChange={(e) => setBodyArea(e.target.value)}
               className="
               w-full
               h-full
@@ -238,7 +233,7 @@ function App() {
           <Button
             variant="contained"
             className="w-1/3"
-            onClick={() => CleanFields()}
+            onClick={() => FillExample("","")}
           >
             Limpiar campos
           </Button>
@@ -371,6 +366,7 @@ function App() {
           </div>
           <div>
             <Button
+              disabled={isClicked}
               variant="contained"
               className="w-full"
               onClick={() => SendRequest()}
@@ -390,5 +386,6 @@ function App() {
     </body>
   );
 }
+
 
 export default App;
