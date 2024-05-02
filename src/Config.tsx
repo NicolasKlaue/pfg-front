@@ -4,7 +4,6 @@ import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router";
-import { configure } from "@testing-library/react";
 
 // Define a type for your configuration object
 interface ConfigType {
@@ -44,7 +43,7 @@ function Config() {
 
   // Function to add a new key-value pair
   const handleAddPair = () => {
-    setConfig((prevConfig) => ({ ...prevConfig, ["newKey"]: "newValue" }));
+    setConfig((prevConfig) => ({ ...prevConfig, "newKey": "newValue" }));
   };
 
   // Function to delete a key-value pair
