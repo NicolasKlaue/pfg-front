@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { useLocation, useNavigate } from "react-router";
+import {useNavigate } from "react-router";
 
 // Define a type for your configuration object
 interface ConfigType {
@@ -12,7 +12,6 @@ interface ConfigType {
 
 function Config() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   // State to manage the configuration
   const [config, setConfig] = useState<ConfigType>({});
@@ -36,8 +35,7 @@ function Config() {
      };
  
      fetchData();
-   }, [location]); // Dependency array includes location
- 
+   }, []);
 
 
   // Function to handle changes in configuration value
