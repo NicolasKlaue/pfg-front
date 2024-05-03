@@ -1,9 +1,9 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import {useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 // Define a type for your configuration object
 interface ConfigType {
@@ -22,38 +22,36 @@ function Config() {
 
   // Fetch the configuration from the server using Axios
   useEffect(() => {
-     console.log("Fetching config data");
-     const fetchData = async () => {
-       try {
-         const response = await axios.get("http://localhost:8000/config");
-         setConfig(response.data);
-         console.log(response.data);
-         
-       } catch (error) {
-         console.error("Error fetching config:", error);
-       }
-     };
- 
-     fetchData();
-   }, []);
+    console.log("Fetching config data");
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/config");
+        setConfig(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching config:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
 
   // Function to handle changes in configuration value
   const handleValueChange = (key: string, newValue: string) => {
-    setConfig((prevConfig) => ({...prevConfig, [key]: newValue }));
+    setConfig((prevConfig) => ({ ...prevConfig, [key]: newValue }));
   };
 
   // Function to add a new key-value pair
   const handleAddPair = () => {
-     if (!keyInput || !valueInput) return;
-    setConfig((prevConfig) => ({...prevConfig, [keyInput]: valueInput }));
+    if (!keyInput || !valueInput) return;
+    setConfig((prevConfig) => ({ ...prevConfig, [keyInput]: valueInput }));
     setKeyInput("");
     setValueInput("");
   };
 
   // Function to delete a key-value pair
   const handleDeletePair = (key: string) => {
-    const { [key]: deletedKey,...rest } = config;
+    const { [key]: deletedKey, ...rest } = config;
     setConfig(rest);
   };
 
@@ -61,11 +59,11 @@ function Config() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await axios.post('http://localhost:8000/config', { config: config });
-      console.log('Config sent successfully:', config);
+      await axios.post("http://localhost:8000/config", { config: config });
+      console.log("Config sent successfully:", config);
       navigate("/");
     } catch (error) {
-      console.error('Error sending config:', error);
+      console.error("Error sending config:", error);
     }
   };
 
@@ -78,11 +76,7 @@ function Config() {
             <div key={key}>
               <label>
                 Key:
-                <input
-                  type="text"
-                  value={key}
-                  disabled={true}
-                />
+                <input type="text" value={key} disabled={true} />
               </label>
               <label>
                 Value:
@@ -122,7 +116,7 @@ function Config() {
           <IconButton onClick={handleAddPair} aria-label="add">
             <AddIcon />
           </IconButton>
-        <Button variant="contained" type="submit" onClick={handleAddPair}>
+          <Button variant="contained" type="submit" onClick={handleAddPair}>
             Save
           </Button>
         </form>
