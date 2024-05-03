@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
 import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 // Define a type for your configuration object
 interface ConfigType {
@@ -12,57 +12,64 @@ interface ConfigType {
 
 function Config() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // State to manage the configuration
   const [config, setConfig] = useState<ConfigType>({});
 
+  // Separate states for input fields
+  const [keyInput, setKeyInput] = useState("");
+  const [valueInput, setValueInput] = useState("");
+
   // Fetch the configuration from the server using Axios
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/config")
-      .then((response) => {
-        setConfig(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching config:", error);
-      });
-  }, []);
+     console.log("Fetching config data");
+     const fetchData = async () => {
+       try {
+         const response = await axios.get("http://localhost:8000/config");
+         setConfig(response.data);
+         console.log(response.data);
+         
+       } catch (error) {
+         console.error("Error fetching config:", error);
+       }
+     };
+ 
+     fetchData();
+   }, [location]); // Dependency array includes location
+ 
 
-  // Function to handle changes in configuration key
-  const handleKeyChange = (oldKey: string, newKey: string) => {
-    const updatedConfig = { ...config };
-    updatedConfig[newKey] = updatedConfig[oldKey];
-    delete updatedConfig[oldKey];
-    setConfig(updatedConfig);
-  };
 
   // Function to handle changes in configuration value
   const handleValueChange = (key: string, newValue: string) => {
-    setConfig((prevConfig) => ({ ...prevConfig, [key]: newValue }));
+    setConfig((prevConfig) => ({...prevConfig, [key]: newValue }));
   };
 
   // Function to add a new key-value pair
   const handleAddPair = () => {
-    setConfig((prevConfig) => ({ ...prevConfig, "newKey": "newValue" }));
+     if (!keyInput || !valueInput) return;
+    setConfig((prevConfig) => ({...prevConfig, [keyInput]: valueInput }));
+    setKeyInput("");
+    setValueInput("");
   };
 
   // Function to delete a key-value pair
   const handleDeletePair = (key: string) => {
-    const { [key]: deletedKey, ...rest } = config;
+    const { [key]: deletedKey,...rest } = config;
     setConfig(rest);
   };
 
-// Function to submit the configuration
-const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-     event.preventDefault();
-     try {
-       await axios.post('http://localhost:8000/config', { config: config });
-       console.log('Config sent successfully:', config);
-       navigate("/");
-     } catch (error) {
-       console.error('Error sending config:', error);
-     }
-   };
+  // Function to submit the configuration
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await axios.post('http://localhost:8000/config', { config: config });
+      console.log('Config sent successfully:', config);
+      navigate("/");
+    } catch (error) {
+      console.error('Error sending config:', error);
+    }
+  };
 
   return (
     <div className="flex w-full justify-center h-full">
@@ -76,7 +83,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 <input
                   type="text"
                   value={key}
-                  onChange={(event) => handleKeyChange(key, event.target.value)}
+                  disabled={true}
                 />
               </label>
               <label>
@@ -98,13 +105,28 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
               <br />
             </div>
           ))}
-
-          <Button variant="contained" type="submit">
-            Save
-          </Button>
+          <label>
+            New Key:
+            <input
+              type="text"
+              value={keyInput}
+              onChange={(event) => setKeyInput(event.target.value)}
+            />
+          </label>
+          <label>
+            New Value:
+            <input
+              type="text"
+              value={valueInput}
+              onChange={(event) => setValueInput(event.target.value)}
+            />
+          </label>
           <IconButton onClick={handleAddPair} aria-label="add">
             <AddIcon />
           </IconButton>
+        <Button variant="contained" type="submit" onClick={handleAddPair}>
+            Save
+          </Button>
         </form>
       </div>
     </div>
