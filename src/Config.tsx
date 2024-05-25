@@ -25,7 +25,7 @@ function Config() {
     console.log("Fetching config data");
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/config");
+        const response = await axios.get("https://seashell-app-ibhqb.ondigitalocean.app/config");
         setConfig(response.data);
         console.log(response.data);
       } catch (error) {
@@ -59,7 +59,7 @@ function Config() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:8000/config", { config: config });
+      await axios.post("https://seashell-app-ibhqb.ondigitalocean.app/config", { config: config });
       console.log("Config sent successfully:", config);
       navigate("/");
     } catch (error) {

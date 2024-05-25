@@ -39,7 +39,7 @@ function Home() {
     };
 
     axios
-      .post("http://localhost:8000/", params)
+      .post("https://seashell-app-ibhqb.ondigitalocean.app", params)
       .then((response) => {
         const responseData = response.data;
           console.log(response)
